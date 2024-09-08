@@ -1,4 +1,4 @@
-from GymApp.scanner.exercies.chestpress import Chestpress
+from scanner.exercies.chestpress import Chestpress
 
 
 class Starter:
@@ -14,4 +14,4 @@ class Starter:
 
 if __name__ == "__main__":
     gym = Starter()
-    gym.rep("chestpress", 0)
+    gym.rep("chestpress", "0")

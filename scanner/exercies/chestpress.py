@@ -1,6 +1,7 @@
 import mediapipe as mp
-from ThreadedCamera import ThreadedCamera
-from utils import *
+from scanner.utils.ThreadedCamera import ThreadedCamera
+from scanner.utils.utils import *
+import cv2
 
 mp_drawing = mp.solutions.drawing_utils
 mp_holistic = mp.solutions.holistic
@@ -12,9 +13,6 @@ pose_connection_drawing_spec = mp_drawing.DrawingSpec(thickness=1, circle_radius
 PRESENCE_THRESHOLD = 0.5
 VISIBILITY_THRESHOLD = 0.5
 performedRep = False
-
-
-
 
 
 class Chestpress():
@@ -54,7 +52,7 @@ class Chestpress():
                     # Winkel Rechts Ober/Unterarm
                     angR = ang((idx_to_coordinates[12], idx_to_coordinates[14]),
                                (idx_to_coordinates[14], idx_to_coordinates[16]))
-                    
+
                     # Text Winkel Rechts Ober/Unterarm
                     cv2.putText(image, "   " + str(round(angR, 2)), (idx_to_coordinates[14]),
                                 fontFace=cv2.FONT_HERSHEY_SIMPLEX,
@@ -66,24 +64,22 @@ class Chestpress():
                     if angR >= 60 or angR <= 35:
                         print("Rechter Ellenbogen adjustieren")
 
+                if 11 in idx_to_coordinates and 13 in idx_to_coordinates and 15 in idx_to_coordinates:
 
-                if 11 in idx_to_coordinates and 13 in idx_to_coordinates and 15 in idx_to_coordinates:  
-                    
                     # Linie Links Schulter/Ellenbogen
                     cv2.line(image, (idx_to_coordinates[11]), (idx_to_coordinates[13]), thickness=4,
                              color=(255, 0, 255))
                     l1 = np.linspace(idx_to_coordinates[11], idx_to_coordinates[13], 100)
 
-
                     # Linie Links Ellebogen/Handgelenk
                     cv2.line(image, (idx_to_coordinates[13]), (idx_to_coordinates[15]), thickness=4,
                              color=(255, 0, 255))
                     l2 = np.linspace(idx_to_coordinates[13], idx_to_coordinates[16], 100)
-                    
+
                     # Winkel Links Ober/Unterarm
                     angL = ang((idx_to_coordinates[11], idx_to_coordinates[13]),
-                                (idx_to_coordinates[13], idx_to_coordinates[15]))
-                    
+                               (idx_to_coordinates[13], idx_to_coordinates[15]))
+
                     # Text Winkel Links Ober/Unterarm
                     cv2.putText(image, str(round(angL, 2)), (idx_to_coordinates[13]),
                                 fontFace=cv2.FONT_HERSHEY_SIMPLEX,
@@ -91,19 +87,19 @@ class Chestpress():
                     center, radius, start_angle, end_angle = convert_arc(l1[80], l2[20], sagitta=15)
                     axes = (radius, radius)
                     draw_ellipse(image, center, axes, -1, start_angle, end_angle, 255)
-                     
+
                     if angL >= 60 or angL <= 35:
                         print("Linker Ellenbogen adjustieren")
 
 
-            except: 
-                pass 
+            except:
+                pass
 
             try:
-                 # Schulter - Hüfte -  Knie
+                # Schulter - Hüfte -  Knie
                 if 12 in idx_to_coordinates and 24 in idx_to_coordinates and 26 in idx_to_coordinates:  # Rechte Körperhälfte
-                     
-                     # Linie Rechts Schulter/Hüfte
+
+                    # Linie Rechts Schulter/Hüfte
                     cv2.line(image, (idx_to_coordinates[12]), (idx_to_coordinates[24]), thickness=4,
                              color=(255, 0, 255))
                     l1 = np.linspace(idx_to_coordinates[12], idx_to_coordinates[24], 100)
@@ -112,12 +108,12 @@ class Chestpress():
                     cv2.line(image, (idx_to_coordinates[24]), (idx_to_coordinates[26]), thickness=4,
                              color=(255, 0, 255))
                     l2 = np.linspace(idx_to_coordinates[24], idx_to_coordinates[26], 100)
-                    
-                     # Winkel Rechts Schulter/Hüfte/Knie
-                    angR = ang((idx_to_coordinates[12], idx_to_coordinates[24]),
-                                (idx_to_coordinates[24], idx_to_coordinates[26]))
 
-                     # Text Winkel Rechts Schulter/Hüfte/Knie
+                    # Winkel Rechts Schulter/Hüfte/Knie
+                    angR = ang((idx_to_coordinates[12], idx_to_coordinates[24]),
+                               (idx_to_coordinates[24], idx_to_coordinates[26]))
+
+                    # Text Winkel Rechts Schulter/Hüfte/Knie
                     cv2.putText(image, "   " + str(round(angR, 2)), (idx_to_coordinates[24]),
                                 fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                                 fontScale=0.6, color=(0, 255, 0), thickness=2)
@@ -125,24 +121,22 @@ class Chestpress():
                     axes = (radius, radius)
                     draw_ellipse(image, center, axes, -1, start_angle, end_angle, 255)
 
-
                 if 11 in idx_to_coordinates and 13 in idx_to_coordinates and 15 in idx_to_coordinates:  # Linke Körperhälfte
-                    
+
                     # Linie Links Schulter/Hüfte
                     cv2.line(image, (idx_to_coordinates[11]), (idx_to_coordinates[23]), thickness=4,
                              color=(255, 0, 255))
                     l1 = np.linspace(idx_to_coordinates[11], idx_to_coordinates[23], 100)
 
-
                     # Linie Links Hüfte/Knie
                     cv2.line(image, (idx_to_coordinates[23]), (idx_to_coordinates[25]), thickness=4,
                              color=(255, 0, 255))
                     l2 = np.linspace(idx_to_coordinates[23], idx_to_coordinates[25], 100)
-                    
+
                     # Winkel Links Schulter/Hüfte/Knie
                     angL = ang((idx_to_coordinates[11], idx_to_coordinates[23]),
-                                (idx_to_coordinates[23], idx_to_coordinates[25]))
-                    
+                               (idx_to_coordinates[23], idx_to_coordinates[25]))
+
                     # Text Winkel Links Schulter/Hüfte/Knie 
                     cv2.putText(image, str(round(angL, 2)), (idx_to_coordinates[23]),
                                 fontFace=cv2.FONT_HERSHEY_SIMPLEX,
@@ -150,12 +144,12 @@ class Chestpress():
                     center, radius, start_angle, end_angle = convert_arc(l1[80], l2[20], sagitta=15)
                     axes = (radius, radius)
                     draw_ellipse(image, center, axes, -1, start_angle, end_angle, 255)
-                     
-                
+
+
             except:
                 pass
 
-
+            cv2.imshow('Image', rescale_frame(image, percent=150))
             if cv2.waitKey(5) & 0xFF == 27:
                 break
 
