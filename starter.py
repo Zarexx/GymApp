@@ -2,4 +2,4 @@ from scanner.utils.scanner import Starter
 
 if __name__ == "__main__":
     gym = Starter()
-    gym.rep("chestpress", 0)
+    gym.rep("chestpress", "chest.mp4")
