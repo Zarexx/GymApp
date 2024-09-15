@@ -1,4 +1,4 @@
-from scanner.exercies.chestpress import Chestpress
+from Serverapp.exercies.chestpress import Chestpress
 
 
 class Starter:
