@@ -1,6 +1,6 @@
 import mediapipe as mp
-from Serverapp.ScannerUtils.ThreadedCamera import ThreadedCamera
-from Serverapp.ScannerUtils.utils import *
+from ScannerUtils.ThreadedCamera import ThreadedCamera
+from ScannerUtils.utils import *
 import cv2
 
 mp_drawing = mp.solutions.drawing_utils

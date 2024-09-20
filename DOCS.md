@@ -1,4 +1,13 @@
-### MVP-LOCAL-GYMSERVER-APPLICATION
+MVP-LOCAL-GYMSERVER-APPLICATION
 
-## Webapp
+## variabeln - config.py
+`webappserver_port` 
+`serverappserver_port`
+
+### Funktionen
+
+ **Webapp - Backend**
+
+`init_ui()`
+
     
