@@ -1,19 +1,29 @@
-from flask import Flask
-from ScannerUtils.scanner import Starter
+#from ScannerUtils.scanner import start_thread
+
+from flask import Flask, request, jsonify
+from flask_socketio import SocketIO, emit
+
 app = Flask(__name__)
-
-
-def start_thread():
-    gym = Starter()
-    gym.rep("chestpress", 0)
+socketio = SocketIO(app, cors_allowed_origins='*')
 
 
 @app.route('/init')
 def req_start():
     print("Teststart")
-    start_thread()
+    start_thread("chestpress", )
     return {"Serverapp": "starte application"}
+
+@socketio.on("connect")
+def connected():
+    """event listener when client connects to the server"""
+    print("client has connected")
+
+@socketio.on('test')
+def handle_message(data):
+    print('Empfangene Nachricht:', data)
+    emit('response', {'data': 'Nachricht erhalten!'})
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+       socketio.run(app, port=5001)
+

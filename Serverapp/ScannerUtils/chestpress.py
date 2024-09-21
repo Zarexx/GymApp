@@ -1,6 +1,6 @@
 import mediapipe as mp
-from ScannerUtils.ThreadedCamera import ThreadedCamera
-from ScannerUtils.utils import *
+from Serverapp.ScannerUtils.ThreadedCamera import ThreadedCamera
+from Serverapp.ScannerUtils.utils import *
 import cv2
 
 mp_drawing = mp.solutions.drawing_utils
@@ -21,7 +21,6 @@ class Chestpress():
 
     def exercise(self, source):
         threaded_camera = ThreadedCamera(source)
-        timer = 5
         while True:
             success, image = threaded_camera.show_frame()
             if not success or image is None:
@@ -205,9 +204,6 @@ class Chestpress():
             except:
                 pass
 
-            # timer += 1
-            cv2.imshow('Image', rescale_frame(image, percent=50))
-            if cv2.waitKey(5) & 0xFF == 27:
-                break
+            print( image)
 
         pose.close()
