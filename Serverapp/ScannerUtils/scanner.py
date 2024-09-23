@@ -1,6 +1,6 @@
 from threading import Thread
 
-from Serverapp.ScannerUtils.chestpress import Chestpress
+from ScannerUtils.chestpress import Chestpress
 
 
 class Starter:
