@@ -9,15 +9,15 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 CORS(app)
 
 
-@app.route('/init_thread')
-def init_thread():
+@app.route('/init_thread/<ip>')
+def init_thread(ip):
     """Initalize den ExerciseScanner thread
         - Baut websocket verbindung mit Client auf 
         - Startet den ExerciseScanner thread
     """
-    # nicht fertig / websocket fehlt
-    start_thread("chestpress")
-    return "True"
+    print(ip)
+    # start_thread("chestpress")
+    return f"{ip}" 
 
 
 if __name__ == '__main__':

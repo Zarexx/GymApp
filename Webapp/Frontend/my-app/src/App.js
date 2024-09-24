@@ -4,20 +4,37 @@ import io from 'socket.io-client';
 const socket = io.connect("http://127.0.0.1:5001");
 
 function App() {
-  const [message, setMessage] = useState('');
+ 
+  async function handleSubmit() {
+    try {
+      const response = await fetch('http://127.0.0.1:5002/init_ui/testUser');
+      const jsonData = await response.json();
+      console.log(jsonData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    socket.emit('chat_message', message);
-    setMessage('');
-  };
+  
+  async function threadStart() {
+    try {
+      const response = await fetch('http://127.0.0.1:5002/req_thread');
+      const jsonData = await response.json();
+      console.log(jsonData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
 
   return (
     <div>
-      <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
-      <button onClick={handleSubmit}>Senden</button>   
-
+        <button onClick={handleSubmit}>UI daten</button> 
+  
+        <button onClick={threadStart}>thread starten</button> 
     </div>
+
+   
   );
 }
 
