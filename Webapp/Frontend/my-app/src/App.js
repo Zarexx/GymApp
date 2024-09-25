@@ -1,41 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 
-const socket = io.connect("http://127.0.0.1:5001");
-
 function App() {
- 
-  async function handleSubmit() {
-    try {
-      const response = await fetch('http://127.0.0.1:5002/init_ui/testUser');
-      const jsonData = await response.json();
-      console.log(jsonData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
+    const videoRef = useRef(null);
+    const socket = io("http://127.0.0.1:5002");
 
-  
-  async function threadStart() {
-    try {
-      const response = await fetch('http://127.0.0.1:5002/req_thread');
-      const jsonData = await response.json();
-      console.log(jsonData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
-
-
-  return (
-    <div>
-        <button onClick={handleSubmit}>UI daten</button> 
-  
-        <button onClick={threadStart}>thread starten</button> 
-    </div>
-
-   
-  );
+    useEffect(() => {
+        socket.on('request_frames', (data) => {
+          const img = new Image();
+          img.onload = () => {
+            videoRef.current.src = img.src;
+          };
+          img.src = `data:image/jpeg;base64,${data}`;
+        });
+      }, []);
+    
+      return (
+        <video ref={videoRef} autoPlay />
+      );
 }
 
 export default App;
