@@ -14,6 +14,11 @@ PRESENCE_THRESHOLD = 0.5
 VISIBILITY_THRESHOLD = 0.5
 performedRep = False
 
+from queue import Queue
+
+# Initialize queue to share frames
+frame_queue = Queue()
+
 
 class Chestpress():
     def __init__(self):
@@ -212,6 +217,8 @@ class Chestpress():
             except:
                 pass
 
+
+            frame_queue.put(image)
             cv2.imshow('Image', rescale_frame(image, percent=50))
             if cv2.waitKey(5) & 0xFF == 27:
                 break

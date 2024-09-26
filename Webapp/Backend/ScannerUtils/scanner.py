@@ -16,8 +16,8 @@ class Starter:
 
 def start_thread(exercise: str):
     scanner = Starter()
-    scanner_thread = Thread(target=scanner.exercise_chooser, args=(exercise, 0))
-    scanner_thread.start()
+    scanner.exercise_chooser(exercise, 0)
+  
 
 
 if __name__ == "__main__":
