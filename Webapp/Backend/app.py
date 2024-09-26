@@ -30,7 +30,9 @@ def handle_request_frames():
             yield frame
     socketio.emit('frame', event_stream(), namespace='/')
 
-
+@socketio.on('request_frames')
+def send_message(m):
+    pass
 # Api 
 
 @app.route('/init_ui/<username>', methods=['GET'])
