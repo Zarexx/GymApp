@@ -1,59 +1,112 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import './MainPage.css'; // Korrigierter Pfad für das Styling
 
-function App() {
-  
+const App = () => {
     const [socket, setSocket] = useState(null);
     const [imageSrc, setImageSrc] = useState('');
     const [message, setMessage] = useState('');
 
+
     useEffect(() => {
-      const newSocket = io('http://localhost:5002'); // Connect to Flask backend
-      setSocket(newSocket);
-  
-      // Request frame every 100ms
-      const interval = setInterval(() => {
-        newSocket.emit('request_frame');
-      }, 100);
-  
-      // Clean up connection
-      return () => {
-        clearInterval(interval);
-        newSocket.disconnect();
-      };
+        const newSocket = io('http://localhost:5002'); // Connect to Flask backend
+        setSocket(newSocket);
+
+        // Request frame every 1ms
+        const interval = setInterval(() => {
+            newSocket.emit('request_frame');
+        }, 1); 
+
+        // Clean up connection
+        return () => {
+            clearInterval(interval);
+            newSocket.disconnect();
+        };
     }, []);
-  
+
+
+
+
     useEffect(() => {
-      if (socket) {
-        socket.on('video_frame', (frame) => {
-          setImageSrc(`data:image/jpeg;base64,${frame}`);
-        });
-      }
+        if (socket) {
+            socket.on('video_frame', (frame) => {
+                setImageSrc(`data:image/jpeg;base64,${frame}`);
+            });
+        }
     }, [socket]);
 
-    const handleButtonClick = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:5002/api/button-click');
-        const data = await response.json();
-        setMessage(data.message);  // Speichert die Nachricht im State
-      } catch (error) {
-        console.error("Fehler beim Abrufen der API:", error);
-        setMessage("Fehler beim Abrufen der API");
-      }
+    // Function to start the thread
+    const start_thread = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:5002/api/thread_start');
+            const data = await response.json();
+            setMessage(data.message);  // Store the message in state
+        } catch (error) {
+            console.error("Fehler beim Abrufen der API:", error);
+            setMessage("Fehler beim Abrufen der API");
+        }
     };
-  
-    return (
-      <div>
-        <button onClick={handleButtonClick}>Klick mich!</button>
-        <h2>Video Stream</h2>
-        {imageSrc ? (
-          <img src={imageSrc} alt="Video Stream" style={{ width: '50%' }} />
-        ) : (
-          <p>Waiting for video stream...</p>
-        )}
-      </div>
-    );
 
+    // Function to stop the thread
+    const stop_thread = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:5002/api/thread_stop');
+            const data = await response.json();
+            setMessage(data.message);  // Store the message in state
+        } catch (error) {
+            console.error("Fehler beim Abrufen der API:", error);
+            setMessage("Fehler beim Abrufen der API");
+        }
+    };
+
+    return (
+        <div className="main-container">
+            <div className="sidebar">
+                <div className="Logo">
+                    <img src="path_to_logo.png" alt="Logo" /> {/* Replace 'path_to_logo.png' with the correct image path */}
+                </div>
+                <div className="name-container">
+                    nh süße
+                </div>
+                <div className="button-Trainingsplan">
+                    <button className="Trainingsplan-button">Trainingsplan</button>
+                </div>
+                <div className="button-Placeholder">
+                    <button className="Placeholder-button">Placeholder</button>
+                </div>
+                <div className="button-Placeholder">
+                    <button className="Placeholder-button">Placeholder</button>
+                </div>
+            </div>
+            <div className="content">
+                <div className="exercise-header">
+                    <div className="exercise-header-text">
+                        ÜBUNG
+                    </div>
+                </div>
+                <div className="camera-chat-container">
+                    <div className="camera-stream">
+                        <div className="image-container">
+                            {imageSrc ? (
+                                <img src={imageSrc} alt="Video Stream" style={{ width: '100%', height: '100%' }} />
+                            ) : (
+                                <p>Waiting for video stream...</p>
+                            )}
+                        </div>
+                    </div>
+                    <div className="chat-error">
+                        Chat-Fehler
+                    </div>
+                </div>
+                <div className="buttons">
+                    <button className="start-button" onClick={start_thread}>Start</button>
+                    <button className="stop-button" onClick={stop_thread}>Beenden</button>
+                    <button className="trainer-button">Trainer-Holen</button>
+                </div>
+                {message && <p>{message}</p>} {/* Display the message */}
+            </div>
+        </div>
+    );
 };
 
 export default App;

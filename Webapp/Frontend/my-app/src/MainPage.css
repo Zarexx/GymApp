@@ -1,0 +1,198 @@
+/* Verhindert das Scrollen der gesamten Seite */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.197); /* Schwarzer Hintergrund für die gesamte Seite */
+}
+
+.main-container {
+  background-color: rgb(36, 31, 31); /* Sicherstellen, dass der Hintergrund schwarz bleibt */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Viewport voll ausfüllen */
+  padding: 2.5% 0; /* 2,5% Padding oben und unten */
+  box-sizing: border-box; /* Padding und Border zur Größe zählen */
+}
+
+.sidebar {
+  width: 20%;
+  height: calc(100% - 5%); /* Anpassung für 2,5% oben und unten */
+  background-color: #444; /* Dunkles Grau für die Sidebar */
+  padding: 20px;
+  border-radius: 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  width: 70%;
+  height: calc(100% - 5%); /* Anpassung für 2,5% oben und unten */
+  margin-left: 5%;
+  margin-right: 5%;
+  align-items: center;
+  background-color: #444; /* Dunkleres Grau für das Hauptfeld */
+  padding: 20px;
+  border-radius: 15px;
+  box-sizing: border-box; /* Padding wird zur Größe des disv gezählt */
+}
+.exercise-header {
+  width: 100%;
+  height:5%;
+  display: flex;
+  color: white;
+  background-color: #4e322a;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+.exercise-header-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; /* Horizontale Zentrierung */
+  align-items: center;    /* Vertikale Zentrierung */
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+.camera-chat-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 70%;
+  margin-top: 2.5%;
+  margin-bottom: 20px; /* Abstand zu den Buttons */
+}
+
+.camera-stream {
+  width: 48%;
+  height: 100%;
+  background-color: #4e322a;/* Platzhalter-Farbe */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.chat-error {
+  width: 48%;
+  height: 100%;
+  background-color: #4e322a; /* Platzhalter für Chat-Fehler */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px; /* Abstand zum Kamera-Chat-Container */
+}
+
+.start-button {
+  background-color: green;
+  color: white;
+  width: 20%;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+
+.stop-button {
+  background-color: red;
+  color: white;
+  width: 20%;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  align-self: flex-start; /* Ausrichtung am oberen Rand des Flex-Containers */
+  margin-right: -75px;
+}
+
+.trainer-button {
+  background-color: #00aaff;
+  color: white;
+  width: 48%; /* Gleiche Breite wie der Chat-Container */
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+
+.Logo {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  background-color: white;
+  overflow: hidden;
+  margin-bottom: 20px; /* Abstand zum Namen-Container */
+  margin-top: 20px;
+  border: 1px solid #4e322a; /* Temporär, um den Container sichtbar zu machen */
+  margin-bottom: 0px;
+}
+
+.Logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Behält das Seitenverhältnis bei */
+}
+
+.name-container {
+  background-color: #4e322a;
+  color: rgb(255, 255, 255); /* Textfarbe auf Weiß gesetzt für bessere Lesbarkeit */
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  text-align: center;
+  width: 60%; /* oder eine spezifische Breite, je nach Bedarf */
+  margin-top: 10px; /* Optional: Abstand zum Logo */
+}
+
+.button-Trainingsplan {
+  width: 100%;
+  margin-top: 10px;
+} 
+
+.Trainingsplan-button {
+  background-color: #4e322a;
+  color: white;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  margin-top: 100px;
+}
+
+.button-Placeholder {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.Placeholder-button {
+  background-color: #4e322a;
+  color: white;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}

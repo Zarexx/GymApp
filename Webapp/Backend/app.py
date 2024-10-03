@@ -1,14 +1,14 @@
-import threading
-
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 import cv2
 import base64
 
+
 import db.db as db
 from ScannerUtils.chestpress import frame_queue
-from ScannerUtils.scanner import start_thread
+from ScannerUtils.chestpress import start_loop, stop_loop
+
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
@@ -22,6 +22,10 @@ def encode_frame(frame):
     encoded_frame = base64.b64encode(buffer).decode('utf-8')
     return encoded_frame
 
+@socketio.on('error')
+def emit_chat_message(message):
+    """Sendet Fehler an alle verbundenen Clients."""
+    socketio.emit('error', message)
 
 @socketio.on('request_frame')
 def handle_frame_request():
@@ -31,22 +35,16 @@ def handle_frame_request():
         emit('video_frame', encoded_frame)
 
 
-@app.route('/api/button-click', methods=['GET'])
+@app.route('/api/thread_start', methods=['GET'])
 def button_click():
-    start_thread("chestpress")
+    start_loop()
     return jsonify({"message": "Button was clicked!"})
 
+@app.route('/api/thread_stop', methods=['GET'])
+def button_click2():
+    stop_loop()
+    return jsonify({"message": "Button was clicked!"})
 
-# @socketio.on('request_frame')
-# def handle_frame_request():
-#     ret, frame = cap.read()
-#     if ret:
-#         encoded_frame = encode_frame(frame)
-#         emit('video_frame', encoded_frame)
-
-@socketio.on('request_frames')
-def send_message(m):
-    pass
 
 
 # Api
