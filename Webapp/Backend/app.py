@@ -8,7 +8,7 @@ import base64
 import db.db as db
 from ScannerUtils.chestpress import frame_queue, chat_message_queue
 from ScannerUtils.chestpress import start_loop, stop_loop
-
+from ScannerUtils.scanner import exercise_chooser
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
@@ -41,9 +41,9 @@ def handle_chat_message_request():
         print(message)
         emit('chat_message', message)
 
-@app.route('/api/thread_start', methods=['GET'])
-def button_click():
-    start_loop()
+@app.route('/api/thread_start/<exercise>', methods=['GET'])
+def button_click(exercise):
+    exercise_chooser(exercise)
     return jsonify({"message": "Button was clicked!"})
 
 @app.route('/api/thread_stop', methods=['GET'])

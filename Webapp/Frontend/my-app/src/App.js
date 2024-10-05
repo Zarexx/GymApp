@@ -7,7 +7,9 @@ const App = () => {
     const [imageSrc, setImageSrc] = useState('');
     const [message, setMessage] = useState('');
     const [chatMessages, setChatMessages] = useState([]); // State to hold chat messages
+    const [selectedExercise, setSelectedExercise] = useState(''); // State for the selected exercise
 
+    const exercises = ['Chestpress', 'Squat', 'Deadlift', 'Bench Press']; // Add your exercises here
 
     useEffect(() => {
         const newSocket = io('http://localhost:5002'); // Connect to Flask backend
@@ -47,8 +49,12 @@ const App = () => {
 
     // Function to start the thread
     const start_thread = async () => {
+        if (!selectedExercise) {
+            setMessage("Bitte wähle eine Übung aus.");
+        }
         try {
-            const response = await fetch('http://127.0.0.1:5002/api/thread_start');
+
+            const response = await fetch(`http://127.0.0.1:5002/api/thread_start/${selectedExercise}`);
             const data = await response.json();
             setMessage(data.message);  // Store the message in state
         } catch (error) {
@@ -94,7 +100,17 @@ const App = () => {
             <div className="content">
                 <div className="exercise-header">
                     <div className="exercise-header-text">
-                        ÜBUNG
+                        {/* Dropdown Menu for Exercises */}
+                        <select
+                            value={selectedExercise}
+                            onChange={(e) => setSelectedExercise(e.target.value)}
+                            className="exercise-dropdown"
+                        >
+                            <option value="">Wähle eine Übung</option>
+                            {exercises.map((exercise, index) => (
+                                <option key={index} value={exercise}>{exercise}</option>
+                            ))}
+                        </select>
                     </div>
                 </div>
                 <div className="camera-chat-container">
