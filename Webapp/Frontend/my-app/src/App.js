@@ -6,6 +6,7 @@ const App = () => {
     const [socket, setSocket] = useState(null);
     const [imageSrc, setImageSrc] = useState('');
     const [message, setMessage] = useState('');
+    const [chatMessages, setChatMessages] = useState([]); // State to hold chat messages
 
 
     useEffect(() => {
@@ -15,6 +16,7 @@ const App = () => {
         // Request frame every 1ms
         const interval = setInterval(() => {
             newSocket.emit('request_frame');
+            newSocket.emit('request_chat_message');
         }, 1); 
 
         // Clean up connection
@@ -32,8 +34,16 @@ const App = () => {
             socket.on('video_frame', (frame) => {
                 setImageSrc(`data:image/jpeg;base64,${frame}`);
             });
+                        // Listen for chat messages from the backend
+            socket.on('chat_message', (chatMessage) => {
+                setChatMessages((prevMessages) => [...prevMessages, chatMessage]);
+                console.log(chatMessages);
+            });
         }
     }, [socket]);
+
+
+
 
     // Function to start the thread
     const start_thread = async () => {
@@ -53,6 +63,9 @@ const App = () => {
             const response = await fetch('http://127.0.0.1:5002/api/thread_stop');
             const data = await response.json();
             setMessage(data.message);  // Store the message in state
+
+            setImageSrc('');           // Clear the video frame
+            setChatMessages([]);        // Clear the chat messages
         } catch (error) {
             console.error("Fehler beim Abrufen der API:", error);
             setMessage("Fehler beim Abrufen der API");
@@ -95,7 +108,15 @@ const App = () => {
                         </div>
                     </div>
                     <div className="chat-error">
-                        Chat-Fehler
+                        
+                        {/* Render chat messages */}
+                        <div>
+                            <ul>
+                                {chatMessages.map((msg, index) => (
+                                    <li key={index}>{msg}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div className="buttons">

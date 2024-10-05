@@ -6,7 +6,7 @@ import base64
 
 
 import db.db as db
-from ScannerUtils.chestpress import frame_queue
+from ScannerUtils.chestpress import frame_queue, chat_message_queue
 from ScannerUtils.chestpress import start_loop, stop_loop
 
 
@@ -34,6 +34,12 @@ def handle_frame_request():
         encoded_frame = encode_frame(frame)
         emit('video_frame', encoded_frame)
 
+@socketio.on('request_chat_message')
+def handle_chat_message_request():
+    if not chat_message_queue.empty():
+        message = chat_message_queue.get()
+        print(message)
+        emit('chat_message', message)
 
 @app.route('/api/thread_start', methods=['GET'])
 def button_click():

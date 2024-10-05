@@ -22,6 +22,7 @@ def start_loop():
 
 from queue import Queue
 frame_queue = Queue()
+chat_message_queue = Queue()
 
 # Initialize queue to share frames
 
@@ -243,7 +244,7 @@ class Chestpress():
 
                 except:
                     pass
-
+                chat_message_queue.put("TestMessage")
                 frame_queue.put(image)
     #            cv2.imshow('Image', rescale_frame(image, percent=50))
                 if cv2.waitKey(5) & 0xFF == 27:
