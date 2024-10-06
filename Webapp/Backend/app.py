@@ -5,7 +5,6 @@ import cv2
 import base64
 
 
-import db.db as db
 from ScannerUtils.chestpress import frame_queue, chat_message_queue
 from ScannerUtils.chestpress import start_loop, stop_loop
 from ScannerUtils.scanner import exercise_chooser
@@ -58,7 +57,7 @@ def button_click2():
 @app.route('/init_ui/<username>', methods=['GET'])
 def init_ui(username):
     """ client anfrage -> liefert daten für die ui nach db abgleich """
-    return db.user_1
+    pass
 
 
 if __name__ == '__main__':

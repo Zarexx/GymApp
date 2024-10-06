@@ -88,13 +88,13 @@ const App = () => {
                     nh süße
                 </div>
                 <div className="button-Trainingsplan">
-                    <button className="Trainingsplan-button">Trainingsplan</button>
+                    <button className="Trainingsplan-button">STARTSEITE</button>
                 </div>
                 <div className="button-Placeholder">
-                    <button className="Placeholder-button">Placeholder</button>
+                    <button className="Placeholder-button">TRAININGSPLAN</button>
                 </div>
                 <div className="button-Placeholder">
-                    <button className="Placeholder-button">Placeholder</button>
+                    <button className="Placeholder-button">STATISTIK</button>
                 </div>
             </div>
             <div className="content">

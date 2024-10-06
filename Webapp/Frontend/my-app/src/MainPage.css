@@ -4,11 +4,10 @@ body, html {
   padding: 0;
   height: 100%;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.197); /* Schwarzer Hintergrund für die gesamte Seite */
 }
 
 .main-container {
-  background-color: rgb(36, 31, 31); /* Sicherstellen, dass der Hintergrund schwarz bleibt */
+  background-color: #0A0A0A; /* Sicherstellen, dass der Hintergrund schwarz bleibt */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +19,6 @@ body, html {
 .sidebar {
   width: 20%;
   height: calc(100% - 5%); /* Anpassung für 2,5% oben und unten */
-  background-color: #444; /* Dunkles Grau für die Sidebar */
   padding: 20px;
   border-radius: 15px;
   box-sizing: border-box;
@@ -35,7 +33,6 @@ body, html {
   margin-left: 5%;
   margin-right: 5%;
   align-items: center;
-  background-color: #444; /* Dunkleres Grau für das Hauptfeld */
   padding: 20px;
   border-radius: 15px;
   box-sizing: border-box; /* Padding wird zur Größe des disv gezählt */
@@ -45,7 +42,7 @@ body, html {
   height:5%;
   display: flex;
   color: white;
-  background-color: #4e322a;
+  background-color: #34574D;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
@@ -75,7 +72,7 @@ body, html {
 .camera-stream {
   width: 48%;
   height: 100%;
-  background-color: #4e322a;/* Platzhalter-Farbe */
+  background-color: #34574D;/* Platzhalter-Farbe */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +85,7 @@ body, html {
 .chat-error {
   width: 48%;
   height: 100%;
-  background-color: #4e322a; /* Platzhalter für Chat-Fehler */
+  background-color: #34574D; /* Platzhalter für Chat-Fehler */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,7 +104,7 @@ body, html {
 }
 
 .start-button {
-  background-color: green;
+  background-color: #1B3D0C;
   color: white;
   width: 20%;
   padding: 10px;
@@ -116,7 +113,7 @@ body, html {
 }
 
 .stop-button {
-  background-color: red;
+  background-color: #791313;
   color: white;
   width: 20%;
   padding: 10px;
@@ -127,7 +124,7 @@ body, html {
 }
 
 .trainer-button {
-  background-color: #00aaff;
+  background-color: #38B6FF;
   color: white;
   width: 48%; /* Gleiche Breite wie der Chat-Container */
   padding: 10px;
@@ -146,7 +143,7 @@ body, html {
   overflow: hidden;
   margin-bottom: 20px; /* Abstand zum Namen-Container */
   margin-top: 20px;
-  border: 1px solid #4e322a; /* Temporär, um den Container sichtbar zu machen */
+  border: 1px solid #34574D; /* Temporär, um den Container sichtbar zu machen */
   margin-bottom: 0px;
 }
 
@@ -157,7 +154,7 @@ body, html {
 }
 
 .name-container {
-  background-color: #4e322a;
+  background-color: #34574D;
   color: rgb(255, 255, 255); /* Textfarbe auf Weiß gesetzt für bessere Lesbarkeit */
   padding: 10px 20px;
   border-radius: 10px;
@@ -173,7 +170,7 @@ body, html {
 } 
 
 .Trainingsplan-button {
-  background-color: #4e322a;
+  background-color: #34574D;
   color: white;
   width: 100%;
   padding: 10px;
@@ -188,7 +185,7 @@ body, html {
 }
 
 .Placeholder-button {
-  background-color: #4e322a;
+  background-color: #34574D;
   color: white;
   width: 100%;
   padding: 10px;
@@ -200,7 +197,7 @@ body, html {
 
 /* MainPage.css */
 .chat-error {
-  background-color: #4e322a;
+  background-color: #34574D;
   padding: 10px;
   height: 100%; /* Adjust this height based on your layout */
   overflow-y: auto; /* Allows scrolling when there are too many messages */
